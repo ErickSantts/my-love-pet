@@ -1,0 +1,20 @@
+<div class="login-container">
+    <div>
+        <img class="img-login" src="./../../../../../assets/imagens/Logo Pet Shop - usar.png" alt="">
+    </div>
+    <form class="login-form">
+        <div class="form-field">
+            <input type="email" [(ngModel)]="pessoa.email" placeholder="Informe seu e-mail" name="email" required>
+        </div>
+        <div class="form-field">
+            <input type="password" [(ngModel)]="pessoa.senha" placeholder="Informe sua senha" name="password" required>
+        </div>
+        <p class="error" *ngIf="error">Usuário/senha inválidos, tente novamente!</p>
+        <button class="primary-button" type="button" (click)="authenticate()">Entrar</button>
+    </form>
+
+</div>
+
+<div class="footer">
+    <app-footer></app-footer>
+</div>
