@@ -1,5 +1,16 @@
 <app-header></app-header>
-<p>cliente works!</p>
+<div class="container-dog">
+    <div class="img-dog">
+        <img src="./../../../../../assets/imagens/labrador.jpeg" alt="Imagem Pet">
+    </div>
+    <div class="dados">
+        <span>Nome: {{pet?.nome}}</span>
+        <span>Idade: {{pet?.idade}} anos</span>
+        <span>Dono: Erick S Batista</span>
+        <span>Raça: {{pet?.raca}}</span>
+    </div>
+</div>
+<app-tabela [perfil]=""  ></app-tabela>
 <div class="footer">
     <app-footer></app-footer>
 </div>

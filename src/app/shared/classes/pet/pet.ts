@@ -3,4 +3,5 @@ export class Pet {
   nome: string = '';
   raca: string = '';
   donoId: string = '';
+  idade: string = '';
 }

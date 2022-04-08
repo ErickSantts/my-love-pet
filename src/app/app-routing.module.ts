@@ -2,6 +2,7 @@ import { ClienteComponent } from './features/cliente/pages/cliente/cliente.compo
 import { LoginComponent } from './features/login/pages/login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './shared/guards/guard.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -11,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'cliente',
-    component: ClienteComponent,
+    component: ClienteComponent, canActivate: [AuthGuard]
   },
 ];
 

@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   }
 
   exit() {
-    sessionStorage.clear();
+    localStorage.clear();
     this.navigateByUrl('/login');
   }
 }

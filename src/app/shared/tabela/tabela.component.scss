@@ -1,0 +1,16 @@
+.container-principal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  .container-consultas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+      width: 100%;
+    table {
+      width: 50%;
+    }
+  }
+}
