@@ -139,6 +139,13 @@ export class ConsultasService {
 
   salvar(novo: Pessoa) {
     this.pessoas.push(novo)
+    alert('Pessoa inserida: ' + novo.nome)
+  }
+
+  editarPessoa(pessoa: Pessoa){
+     filteredPessoa: Pessoa;
+
+     //filteredPessoa = this.pessoas.find(p => p.id = pessoa.id)
   }
 
   getAllPessoas() {

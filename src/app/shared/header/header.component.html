@@ -1,5 +1,5 @@
 <nav>
-    <li routerLink="/funcionarios">Home</li>
+    <li (click)="navegar('/'+perfil)">Home</li>
     <ul>
         <li (click)="navegar('/contabilidade')" *ngIf="perfil == 'owner' ">Contabilidade</li>
         <li (click)="navegar('/funcionarios')" *ngIf="perfil == 'owner' ">Funcionários</li>

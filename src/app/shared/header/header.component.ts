@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
   }
 
   navigateByUrl(url: string) {
-    this.router.navigateByUrl(url);
+    this.router.navigateByUrl('/'+url);
   }
 
   exit() {
