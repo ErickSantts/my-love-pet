@@ -6,4 +6,5 @@ export class Consulta {
         dataConsulta: Date = new Date();
         remedios: string = '';
         valor: number = 0;
+        detalhes: string = ''
 }

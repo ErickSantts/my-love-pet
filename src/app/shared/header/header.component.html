@@ -1,8 +1,10 @@
 <nav>
-    <li routerLink="/students">Home</li>
+    <li routerLink="/funcionarios">Home</li>
     <ul>
-        <li routerLink="/create-student">Perfil</li>
-        <li routerLink="/create-student">Meu Pet Perfil</li>
+        <li (click)="navegar('/contabilidade')" *ngIf="perfil == 'owner' ">Contabilidade</li>
+        <li (click)="navegar('/funcionarios')" *ngIf="perfil == 'owner' ">Funcionários</li>
+        <li (click)="navegar('/perfil')" *ngIf="perfil == 'cliente' ">Perfil</li>
+        <li (click)="navegar('/pet-perfil')">Meu Pet Perfil</li>
         <li (click)="exit()">Sair</li>
     </ul>
 </nav>

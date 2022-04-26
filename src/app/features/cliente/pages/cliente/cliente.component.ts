@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cliente.component.scss'],
 })
 export class ClienteComponent implements OnInit {
-  pet = this.consultaService.getPetById('1');
+  pet = this.consultaService.getPetById('2');
   constructor(private consultaService: ConsultasService) {}
 
   ngOnInit(): void {}

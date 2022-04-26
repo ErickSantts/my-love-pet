@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   error: boolean = false;
   pessoa!: Pessoa;
 
-  constructor(private router: Router, private loginService: LoginService) {}
+  constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit(): void {
     this.pessoa = new Pessoa();
@@ -31,6 +31,15 @@ export class LoginComponent implements OnInit {
 
     localStorage.setItem('pessoa', JSON.stringify(pessoa));
 
+    if (pessoa.perfil == 'owner') {
+      return this.router.navigateByUrl('/owner')
+    }
+    else if (pessoa.perfil == 'funcionario') {
+      return this.router.navigateByUrl('/funcionario');
+    } else if (pessoa.perfil == 'veterinario') {
+      return this.router.navigateByUrl('/veterinario');
+    }
     return this.router.navigateByUrl('/cliente');
+
   }
 }
