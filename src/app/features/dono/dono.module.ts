@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FuncionariosComponent } from './pages/funcionarios/funcionarios.component';
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 
 const materialModules = [
@@ -16,7 +17,12 @@ const materialModules = [
     FuncionariosComponent
   ],
   imports: [
-    CommonModule, SharedModule, MatTableModule, FormsModule, ReactiveFormsModule
+    CommonModule, 
+    SharedModule, 
+    MatTableModule, 
+    FormsModule, 
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [DonoComponent, FuncionariosComponent]
 })

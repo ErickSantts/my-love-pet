@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 import { Pessoa } from 'src/app/shared/classes/pessoa/pessoa';
 import { ConsultasService } from 'src/app/shared/services/consultas.service';
 
@@ -9,10 +11,14 @@ import { ConsultasService } from 'src/app/shared/services/consultas.service';
   styleUrls: ['./funcionarios.component.scss'],
 })
 export class FuncionariosComponent implements OnInit {
+  novoFuncionario: Pessoa = this.consultasServices.getDefaultPessoa();
   pessoas!: Array<Pessoa>;
   funcionarios!: Array<Pessoa>;
   displayedColumns: string[] = ['id', 'nome'];
   cadastro: boolean = false;
+  detalhes: boolean = false;
+  editar: boolean = false;
+  funcionarioSelecionado!: Pessoa;
 
   formFuncionario = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -21,40 +27,76 @@ export class FuncionariosComponent implements OnInit {
     contato: new FormControl('', Validators.required),
   });
 
-  constructor(private consultasServices: ConsultasService) {}
+  constructor(private router: Router, private consultasServices: ConsultasService, private ttpClient: HttpClient) { }
 
   ngOnInit(): void {
-    this.funcionarios = this.consultasServices.getFuncionarios();
+    this.consultasServices.getFuncionarios().subscribe((funcionarios) => {
+      this.funcionarios = funcionarios;
+    })
+    console.log(this.funcionarios)
   }
 
   newFuncionario() {
     this.cadastro = true;
   }
   salvar() {
-    const pessoa = new Pessoa();
-    const formValue = this.formFuncionario.value;
-    pessoa.nome = formValue.name;
-    pessoa.email = formValue.email;
-    pessoa.dataNascimento = formValue.dataNascimento;
-    pessoa.contato = formValue.contato;
-    pessoa.perfil = 'funcionario';
-    pessoa.senha = '12345';
-    pessoa.id = this.gerarId().toString();
+    const formValue = this.formFuncionario.value
 
-    this.consultasServices.salvar(pessoa);
+    this.novoFuncionario.name = formValue.name,
+      this.novoFuncionario.email = formValue.email,
+      this.novoFuncionario.dataNascimento = formValue.dataNascimento,
+      this.novoFuncionario.contato = formValue.contato,
+      this.novoFuncionario.perfil = 'funcionario',
+      this.novoFuncionario.senha = '12345',
 
-    alert(pessoa.id);
-    this.cadastro = false;
-    this.funcionarios = this.consultasServices.getFuncionarios();
+      this.consultasServices.salvar(this.novoFuncionario).subscribe((pessoa) => {
+
+        window.location.reload();
+        alert('Funcionario adicionado com sucesso')
+      })
+
   }
-  editarPessoa(pessoa:Pessoa){
-    
+
+
+  editarPessoa(pessoa: Pessoa) {
+
   }
   cancelar() {
     this.cadastro = false;
+    this.editar = false;
   }
   gerarId() {
-    this.pessoas = this.consultasServices.getAllPessoas();
+
     return this.pessoas.length;
+  }
+
+  detalhesFuncionario(id: string) {
+    this.consultasServices.getFuncionarioById(id).subscribe((funcionario) => {
+      this.funcionarioSelecionado = funcionario
+    })
+    this.detalhes = true;
+  }
+
+   editarFuncionario(id: string) {
+     this.consultasServices.getFuncionarioById(id).subscribe((funcionario) => {
+      this.funcionarioSelecionado = funcionario
+      this.formFuncionario = new FormGroup({
+        name: new FormControl(this.funcionarioSelecionado.name, [Validators.required]),
+        email: new FormControl(this.funcionarioSelecionado.email, [Validators.required]),
+        dataNascimento: new FormControl(this.funcionarioSelecionado.dataNascimento, Validators.required),
+        contato: new FormControl(this.funcionarioSelecionado.contato, Validators.required),
+      });
+  
+      this.editar = true
+    })
+
+     
+  }
+
+  update() { }
+
+  cancelarDetalhes() {
+    this.detalhes = false;
+    this.editar = false;
   }
 }

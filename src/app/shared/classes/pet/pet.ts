@@ -1,7 +1,7 @@
-export class Pet {
-  id: string = '';
-  nome: string = '';
-  raca: string = '';
-  donoId: string = '';
-  idade: string = '';
+export interface Pet {
+  id: string;
+  nome: string;
+  raca: string;
+  donoId: string;
+  idade: string;
 }

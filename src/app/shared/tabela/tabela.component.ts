@@ -10,27 +10,56 @@ import { ConsultasService } from './../services/consultas.service';
 })
 export class TabelaComponent implements OnInit {
 
-  pessoa?: Pessoa
+  pessoa!: Pessoa
   consultas!: Array<Consulta>
+  detalhes!: boolean;
+  consulta!: Consulta;
+  pessoaCliente?: Pessoa
+  funcionarios?: Array<Pessoa>
 
   @Input() perfil?: string;
 
 
   displayedColumns: string[] = ['id', 'nome', 'valor', 'dataConsulta', 'detalhes'];
 
-  
+
   constructor(private consultasServices: ConsultasService) { }
 
   ngOnInit(): void {
     const pessoa = localStorage.getItem('pessoa');
-    
+
+
     if (pessoa) {
       this.pessoa = JSON.parse(pessoa);
-      if(this.pessoa?.perfil == 'owner'){
-        this.consultas = this.consultasServices.getConsultas();
+      if (this.pessoa?.perfil == 'owner') {
+        this.consultasServices.getConsultas().subscribe((consultas) => {
+          this.consultas = consultas
+        });
+      } if (this.pessoa?.perfil == 'cliente' && this.pessoa.id != null) {
+        this.consultasServices.getConsultasById(this.pessoa.id).subscribe((consultas) => {
+          this.consultas = consultas
+        });
       }
-      else this.consultas = this.consultasServices.getConsultasById(this.pessoa!.id.toString())
+
     }
+  }
+
+  pesquisar(id: string) {
+    this.detalhes = true;
+    this.consultasServices.getConsulta(id).subscribe((consulta) => {
+      this.consulta = consulta
+    });
+
+    console.log(this.consulta)
+    this.consultasServices.getPessoaByConsulta(parseInt(this.consulta?.id)).subscribe((pessoa) => {
+      this.pessoaCliente = pessoa
+
+    })
+    console.log(this.pessoaCliente)
+  }
+
+  fecharDetalhes() {
+    this.detalhes = false;
   }
 
 }

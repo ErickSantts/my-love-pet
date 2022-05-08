@@ -28,9 +28,7 @@ export class HeaderComponent implements OnInit {
 
   exit() {
     localStorage.clear();
-    this.navigateByUrl('/login');
-
-    
+    this.navigateByUrl('/login');   
   }
 
   navegar(url: string) {

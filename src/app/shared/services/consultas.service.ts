@@ -1,156 +1,89 @@
 import { Consulta } from './../classes/consulta/consulta';
 import { Injectable } from '@angular/core';
 import { Pet } from '../classes/pet/pet';
+import * as moment from 'moment';
 import { Pessoa } from '../classes/pessoa/pessoa';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConsultasService {
-  pet = Pet;
-  pets: Array<Pet> = [
-    {
-      id: '1',
-      nome: 'Mel',
-      raca: 'Vira Lata',
-      donoId: '1',
-      idade: '4'
-    },
-    {
-      id: '2',
-      nome: 'Spyck',
-      raca: 'Labrador',
-      donoId: '2',
-      idade: '3'
-    },
-    {
-      id: '3',
-      nome: 'Bruce',
-      raca: 'Husky Siberiano',
-      donoId: '2',
-      idade: '2'
-    },
-  ];
+  options = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
 
-  consultas: Array<Consulta> = [
-    {
-      id: '1',
-      nome: 'Spyck',
-      donoId: '2',
-      raca: '1',
-      dataConsulta: new Date(),
-      remedios: 'Dipirona',
-      valor: 200,
-      detalhes: 'O cachorro chegou com muitos carrapatos, os mesmos serão tratados com NextGuard e voltará pra o retorno dentro de 30 das!'
-    },
 
-    {
-      id: '2',
-      nome: 'Mel',
-      donoId: '1',
-      raca: '1',
-      dataConsulta: new Date(),
-      remedios: 'Dipirona, Remedio pra verme',
-      valor: 120,
-      detalhes: 'O cachorro chegou com muitos carrapatos, os mesmos serão tratados com NextGuard e voltará pra o retorno dentro de 30 das!'
-    },
 
-    {
-      id: '3',
-      nome: 'Bruce',
-      donoId: '2',
-      raca: '1',
-      dataConsulta: new Date(),
-      remedios: 'Remedio pra queda de pelos',
-      valor: 110,
-      detalhes: 'O cachorro chegou com muitos carrapatos, os mesmos serão tratados com NextGuard e voltará pra o retorno dentro de 30 das!'
-    },
+  constructor(private httpCliente: HttpClient) { }
 
-  ];
-
-  pessoas = [{
-
-    id: '1',
-    nome: 'Erick S Batista',
-    email: 'dsantoserick@gmail.com',
-    contato: '(95) 99156-0814',
-    dataNascimento: new Date(),
-    senha: '123',
-    perfil: 'cliente',
-  },
-  {
-    id: '2',
-    nome: 'Thaiza S Batista',
-    email: 'thaiza@gmail.com',
-    contato: '(95) 99156-0814',
-    dataNascimento: new Date(),
-    senha: '123',
-    perfil: 'cliente',
-  }, {
-    id: '3',
-    nome: 'Eliane S Batista',
-    email: 'eliane@gmail.com',
-    contato: '(95) 99156-0814',
-    dataNascimento: new Date(),
-    senha: '123',
-    perfil: 'owner',
-  }, {
-    id: '4',
-    nome: 'Erica S Batista',
-    email: 'erica@gmail.com',
-    contato: '(95) 99156-0814',
-    dataNascimento: new Date(),
-    senha: '123',
-    perfil: 'funcionario',
-  }, {
-    id: '5',
-    nome: 'Dilson S Batista',
-    email: 'dilson@gmail.com',
-    contato: '(95) 99156-0814',
-    dataNascimento: new Date(),
-    senha: '123',
-    perfil: 'veterinario',
-  }]
-  constructor() { }
+  getDefaultPessoa(): Pessoa {
+    const dateToday = moment().format('YYYY/MM/DD');
+    return {
+      name: '',
+      email: '',
+      contato: '',
+      senha: '',
+      dataNascimento: new Date,
+      perfil: 'funcionario'
+    }
+  }
 
   getPets() {
-    return this.pets;
+    return this.httpCliente.get<Array<Pet>>(`${environment.baseUrlBackend}pets/pets`, this.options);
   }
 
   getPetById(id: string) {
-    return this.pets.find((pet) => pet.id == id);
+    
   }
 
   getConsultas() {
-    return this.consultas;
+    return this.httpCliente.get<Array<Consulta>>(`${environment.baseUrlBackend}owner/consultas`);
   }
 
-  getConsultasById(id: string) {
-    return this.consultas.filter(pet => pet.donoId == id)
+  getConsultasById(id: number) {
+    return this.httpCliente.get<Array<Consulta>>(`${environment.baseUrlBackend}cliente/consultas/${id}`)
+  }
+
+  getConsulta(id: string) {
+    return this.httpCliente.get<Consulta>(`${environment.baseUrlBackend}owner/consulta/${id}`)
   }
 
   authenticate(email: string, senha: string) {
-    return this.pessoas.find(pessoa => pessoa.email == email && pessoa.senha == senha)
+    return this.httpCliente.get<Pessoa>(`${environment.baseUrlBackend}login/${senha}/${email}`)
+    //return this.pessoas.find(pessoa => pessoa.email == email && pessoa.senha == senha)
+  }
+
+  getFuncionarioById(id: string){
+    return this.httpCliente.get<Pessoa>(`${environment.baseUrlBackend}funcionario/${id}`)
   }
 
   getFuncionarios() {
-    return this.pessoas.filter(pessoa => pessoa.perfil == 'funcionario')
+    return this.httpCliente.get<Array<Pessoa>>(`${environment.baseUrlBackend}funcionario/funcionarios`, this.options);
   }
 
   salvar(novo: Pessoa) {
-    this.pessoas.push(novo)
-    alert('Pessoa inserida: ' + novo.nome)
+    return this.httpCliente.post(`${environment.baseUrlBackend}funcionario/novo`, novo, this.options);
+
   }
 
-  editarPessoa(pessoa: Pessoa){
-     filteredPessoa: Pessoa;
+  editarPessoa(pessoa: Pessoa) {
 
-     //filteredPessoa = this.pessoas.find(p => p.id = pessoa.id)
+    //filteredPessoa = this.pessoas.find(p => p.id = pessoa.id)
   }
 
   getAllPessoas() {
-    return this.pessoas;
+   
   }
 
-  
+
+  getPessoaByConsulta(id: number) {
+    return this.httpCliente.get<Pessoa>(`${environment.baseUrlBackend}owner/pessoabyconsulta/${id}`, this.options);
+  }
+
+
 }

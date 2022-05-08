@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div *ngIf="!cadastro">
+<div *ngIf="!cadastro && !detalhes && !editar">
     <p>Lista de funcionarios</p>
     <button (click)="newFuncionario()">Cadastras novo funcionario</button>
     <div class="container-principal">
@@ -9,14 +9,18 @@
               The actual rendered columns are set as a property on the row definition" -->
                 <!-- Position Column -->
                 <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef> Id </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    <th mat-header-cell *matHeaderCellDef> Ação </th>
+                    <td mat-cell *matCellDef="let element">
+                        <button style="float: left;" (click)="editarFuncionario(element.id)">Editar</button>
+                        <button style="float: left;" (click)="detalhesFuncionario(element.id)">Detalhes</button>
+                    </td>
+
                 </ng-container>
 
                 <!-- Name Column -->
                 <ng-container matColumnDef="nome">
                     <th mat-header-cell *matHeaderCellDef> Nome </th>
-                    <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                 </ng-container>
 
 
@@ -30,7 +34,7 @@
 <div *ngIf="cadastro">
     <form [formGroup]="formFuncionario" class="register-form">
         <div class="form-field">
-            <label class="label-input">Nome do Estudante:</label>
+            <label class="label-input">Nome do Funcionario:</label>
             <input type="text" formControlName="name" placeholder="Digite o nome">
         </div>
         <div class="form-field">
@@ -45,13 +49,42 @@
             <label class="label-input">Contato</label>
             <input type="text" formControlName="contato" value="Contato">
         </div>
-        
+
         <div class="buttons">
             <button (click)="cancelar()">Cancelar</button>
-            <button
-            class="novoFuncionario"
-            type="submit"
-            (click)="salvar()">Salvar</button>
+            <button class="novoFuncionario" type="submit" (click)="salvar()">Salvar</button>
+        </div>
+    </form>
+</div>
+
+<div *ngIf="detalhes">
+    {{funcionarioSelecionado.name}}
+    <button (click)="cancelarDetalhes()">Voltar</button>
+</div>
+
+
+<div class="card" *ngIf="editar">
+    <form [formGroup]="formFuncionario" class="register-form">
+        <div class="form-field">
+            <label class="label-input">Nome do Funcionario:</label>
+            <input type="text" formControlName="name" placeholder="Digite o nome">
+        </div>
+        <div class="form-field">
+            <label class="label-input">Email:</label>
+            <input type="email" formControlName="email" placeholder="Digite o Email">
+        </div>
+        <div class="form-field">
+            <label class="label-input">Data de Nascimento:</label>
+            <input type="date" formControlName="dataNascimento" value="Data de Nascimento">
+        </div>
+        <div class="form-field">
+            <label class="label-input">Contato</label>
+            <input type="text" formControlName="contato" value="Contato">
+        </div>
+
+        <div class="buttons">
+            <button (click)="cancelar()">Cancelar</button>
+            <button class="novoFuncionario" type="submit" (click)="update()">Salvar</button>
         </div>
     </form>
 </div>
