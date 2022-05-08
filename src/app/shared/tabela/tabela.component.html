@@ -23,7 +23,7 @@
       <!-- Weight Column -->
       <ng-container matColumnDef="valor">
         <th mat-header-cell *matHeaderCellDef width="7%"> Valor </th>
-        <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.valor | currencyBr}} </td>
       </ng-container>
 
       <!-- Symbol Column -->
@@ -52,7 +52,7 @@
       <div>
         <label for="valor-consulta">Valor da Consulta: </label>
         <span id="valor-consulta">
-          {{consulta?.valor}}
+          {{consulta!.valor | currencyBr}}
         </span>
       </div>
       <div>
