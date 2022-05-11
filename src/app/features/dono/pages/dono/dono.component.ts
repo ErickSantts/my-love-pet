@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Pessoa } from 'src/app/shared/classes/pessoa/pessoa';
 
 @Component({
   selector: 'app-dono',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DonoComponent implements OnInit {
 
+  pessoaLogada!: Pessoa
+
   constructor() { }
 
   ngOnInit(): void {
+    const pessoa = localStorage.getItem('pessoa');
+
+    if (pessoa) {
+      this.pessoaLogada = JSON.parse(pessoa);
+    }
   }
 
 }

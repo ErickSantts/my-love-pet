@@ -9,12 +9,14 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { CurrencyBrPipe } from './pipes/currency-br.pipe';
+import { CpfPipe } from './pipes/cpf.pipe';
+import { PhonePipe } from './pipes/phone.pipe';
 const materialModules = [
   MatTableModule
 ];
 @NgModule({
-  declarations: [FooterComponent, HeaderComponent, TabelaComponent, CurrencyBrPipe],
+  declarations: [FooterComponent, HeaderComponent, TabelaComponent, CurrencyBrPipe, CpfPipe, PhonePipe],
   imports: [CommonModule, ...materialModules],
-  exports: [FooterComponent, HeaderComponent, TabelaComponent, CurrencyBrPipe],
+  exports: [FooterComponent, HeaderComponent, TabelaComponent, CurrencyBrPipe, CpfPipe, PhonePipe],
 })
 export class SharedModule {}

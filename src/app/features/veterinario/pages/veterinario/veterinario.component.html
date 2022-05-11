@@ -1,5 +1,42 @@
-
 <app-header></app-header>
-<p>veterinario works!</p>
-<app-tabela></app-tabela>
+
+<div *ngIf="!consulta" class="container-boas-vindas">
+    <p>Bem vindo {{pessoaLogada?.name}}</p>
+    <button (click)="novaConsulta()">Nova Consulta</button>
+    <app-tabela></app-tabela>
+</div>
+<div *ngIf="consulta" class="container-cadastro-consulta">
+
+    <form [formGroup]="formConsulta" class="register-form">
+        <div class="form-field">
+            <label class="label-input">Pet:</label>
+            <input type="text" formControlName="pet" placeholder="Digite o nome">
+        </div>
+        <div class="form-field">
+            <label class="label-input">Dono:</label>
+            <input type="email" formControlName="email" placeholder="Digite o Email">
+        </div>
+        <div class="form-field">
+            <label class="label-input">Raça:</label>
+            <input type="text" formControlName="raca" value="Reca">
+        </div>
+        <div class="form-field">
+            <label class="label-input">Remedios: </label>
+            <input type="text" formControlName="remedios" value="Remedios">
+        </div>
+        <div class="form-field">
+            <label class="label-input">Valor: </label>
+            <input type="number" formControlName="valor" value="Valor">
+        </div>
+        <div class="form-field">
+            <label class="label-input">Descrição da consulta: </label>
+            <input type="number" formControlName="descricao" value="Descricao">
+        </div>
+
+        <div class="buttons">
+            <button (click)="cancelar()">Cancelar</button>
+            <button class="novoFuncionario" type="submit" (click)="salvar()">Salvar</button>
+        </div>
+    </form>
+</div>
 <app-footer></app-footer>

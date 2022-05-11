@@ -6,6 +6,7 @@ import { FuncionariosComponent } from './pages/funcionarios/funcionarios.compone
 import { MatTableModule } from '@angular/material/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ContabilidadeComponent } from './pages/contabilidade/contabilidade.component';
 
 
 const materialModules = [
@@ -14,7 +15,8 @@ const materialModules = [
 @NgModule({
   declarations: [
     DonoComponent,
-    FuncionariosComponent
+    FuncionariosComponent,
+    ContabilidadeComponent
   ],
   imports: [
     CommonModule, 
@@ -24,6 +26,6 @@ const materialModules = [
     ReactiveFormsModule,
     HttpClientModule
   ],
-  exports: [DonoComponent, FuncionariosComponent]
+  exports: [DonoComponent, FuncionariosComponent, ContabilidadeComponent]
 })
 export class DonoModule { }

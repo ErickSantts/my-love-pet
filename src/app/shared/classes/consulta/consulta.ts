@@ -3,7 +3,6 @@ import { Pet } from "../pet/pet";
 
 export interface Consulta {
         id: string;
-        nome: string;
         petId: Pet;
         donoId: Pessoa;
         raca: string;

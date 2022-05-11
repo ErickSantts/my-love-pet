@@ -1,4 +1,35 @@
 <app-header></app-header>
-<p>funcionario works!</p>
+<div *ngIf="!cadastroPessoa">
+    <p>funcionario works!</p>
+    <button (click)="novaPessoa()">Cadastrar nova pessoa</button>
+    <button (click)="novoPet()">Cadastrar novo pet</button>
 <app-tabela></app-tabela>
+</div>
+
+
+<div *ngIf="cadastroPessoa">
+    <form [formGroup]="formPessoa" class="register-form">
+        <div class="form-field">
+            <label class="label-input">Nome do Funcionario:</label>
+            <input type="text" formControlName="name" placeholder="Digite o nome">
+        </div>
+        <div class="form-field">
+            <label class="label-input">Email:</label>
+            <input type="email" formControlName="email" placeholder="Digite o Email">
+        </div>
+        <div class="form-field">
+            <label class="label-input">Data de Nascimento:</label>
+            <input type="date" formControlName="dataNascimento" value="Data de Nascimento">
+        </div>
+        <div class="form-field">
+            <label class="label-input">Contato</label>
+            <input type="text" formControlName="contato" value="Contato">
+        </div>
+
+        <div class="buttons">
+            <button (click)="cancelar()">Cancelar</button>
+            <button class="novoFuncionario" type="submit" (click)="salvar()">Salvar</button>
+        </div>
+    </form>
+</div>
 <app-footer></app-footer>

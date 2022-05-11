@@ -7,6 +7,9 @@ import { DonoComponent } from './features/dono/pages/dono/dono.component';
 import { FuncionarioComponent } from './features/funcionario/pages/funcionario/funcionario.component';
 import { VeterinarioComponent } from './features/veterinario/pages/veterinario/veterinario.component';
 import { FuncionariosComponent } from './features/dono/pages/funcionarios/funcionarios.component';
+import { ContabilidadeComponent } from './features/dono/pages/contabilidade/contabilidade.component';
+import { FuncionarioclieteComponent } from './features/funcionario/pages/funcionariocliete/funcionariocliete.component';
+import { FuncionariopetComponent } from './features/funcionario/pages/funcionariopet/funcionariopet.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -33,6 +36,18 @@ const routes: Routes = [
   {
     path: 'funcionarios',
     component: FuncionariosComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'funcionario-clientes',
+    component: FuncionarioclieteComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'funcionario-pets',
+    component: FuncionariopetComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'contabilidade',
+    component: ContabilidadeComponent, canActivate: [AuthGuard]
   },
 ];
 

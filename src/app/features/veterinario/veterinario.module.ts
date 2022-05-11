@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VeterinarioComponent } from './pages/veterinario/veterinario.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -10,7 +11,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     VeterinarioComponent
   ],
   imports: [
-    CommonModule, SharedModule
+    CommonModule, SharedModule, FormsModule, ReactiveFormsModule
   ],
   exports: [
     VeterinarioComponent

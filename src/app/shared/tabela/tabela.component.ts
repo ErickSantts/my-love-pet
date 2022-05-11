@@ -20,7 +20,7 @@ export class TabelaComponent implements OnInit {
   @Input() perfil?: string;
 
 
-  displayedColumns: string[] = ['id', 'nome', 'valor', 'dataConsulta', 'detalhes'];
+  displayedColumns: string[] = ['id', 'valor', 'dataConsulta', 'detalhes'];
 
 
   constructor(private consultasServices: ConsultasService) { }
@@ -40,6 +40,16 @@ export class TabelaComponent implements OnInit {
           this.consultas = consultas
         });
       }
+      if (this.pessoa?.perfil == 'funcionario') {
+        this.consultasServices.getConsultas().subscribe((consultas) => {
+          this.consultas = consultas
+        });
+      } 
+      if (this.pessoa?.perfil == 'veterinario') {
+        this.consultasServices.getConsultas().subscribe((consultas) => {
+          this.consultas = consultas
+        });
+      } 
 
     }
   }

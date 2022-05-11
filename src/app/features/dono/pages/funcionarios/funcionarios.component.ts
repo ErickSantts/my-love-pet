@@ -27,7 +27,7 @@ export class FuncionariosComponent implements OnInit {
     contato: new FormControl('', Validators.required),
   });
 
-  constructor(private router: Router, private consultasServices: ConsultasService, private ttpClient: HttpClient) { }
+  constructor(private router: Router, private consultasServices: ConsultasService, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     this.consultasServices.getFuncionarios().subscribe((funcionarios) => {
@@ -39,21 +39,38 @@ export class FuncionariosComponent implements OnInit {
   newFuncionario() {
     this.cadastro = true;
   }
+
   salvar() {
+
     const formValue = this.formFuncionario.value
 
     this.novoFuncionario.name = formValue.name,
       this.novoFuncionario.email = formValue.email,
       this.novoFuncionario.dataNascimento = formValue.dataNascimento,
       this.novoFuncionario.contato = formValue.contato,
-      this.novoFuncionario.perfil = 'funcionario',
-      this.novoFuncionario.senha = '12345',
+      this.novoFuncionario.perfil = formValue.vet ? 'veterinario': 'funcionario',
+      this.novoFuncionario.senha = '12345'
 
+    if (this.editar) {
+      this.consultasServices.update(this.funcionarioSelecionado.id!, {
+        name: this.novoFuncionario.name,
+        email: this.novoFuncionario.email,
+        dataNascimento: this.novoFuncionario.dataNascimento,
+        contato: this.novoFuncionario.contato,
+        perfil: this.novoFuncionario.perfil
+      }).subscribe((pessoa) => {
+        window.location.reload();
+        this.editar = false;
+        alert('Funcionario editado com sucesso')
+        
+      })
+    } else if(this.editar == false) {
       this.consultasServices.salvar(this.novoFuncionario).subscribe((pessoa) => {
-
         window.location.reload();
         alert('Funcionario adicionado com sucesso')
       })
+
+    }
 
   }
 
@@ -61,12 +78,12 @@ export class FuncionariosComponent implements OnInit {
   editarPessoa(pessoa: Pessoa) {
 
   }
+
   cancelar() {
     this.cadastro = false;
     this.editar = false;
   }
   gerarId() {
-
     return this.pessoas.length;
   }
 
@@ -77,8 +94,8 @@ export class FuncionariosComponent implements OnInit {
     this.detalhes = true;
   }
 
-   editarFuncionario(id: string) {
-     this.consultasServices.getFuncionarioById(id).subscribe((funcionario) => {
+  editarFuncionario(id: string) {
+    this.consultasServices.getFuncionarioById(id).subscribe((funcionario) => {
       this.funcionarioSelecionado = funcionario
       this.formFuncionario = new FormGroup({
         name: new FormControl(this.funcionarioSelecionado.name, [Validators.required]),
@@ -86,14 +103,13 @@ export class FuncionariosComponent implements OnInit {
         dataNascimento: new FormControl(this.funcionarioSelecionado.dataNascimento, Validators.required),
         contato: new FormControl(this.funcionarioSelecionado.contato, Validators.required),
       });
-  
+
       this.editar = true
     })
 
-     
+
   }
 
-  update() { }
 
   cancelarDetalhes() {
     this.detalhes = false;

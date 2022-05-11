@@ -66,14 +66,17 @@ export class ConsultasService {
     return this.httpCliente.get<Array<Pessoa>>(`${environment.baseUrlBackend}funcionario/funcionarios`, this.options);
   }
 
+  getClientes() {
+    return this.httpCliente.get<Array<Pessoa>>(`${environment.baseUrlBackend}funcionario/clientes`, this.options);
+  }
+
   salvar(novo: Pessoa) {
     return this.httpCliente.post(`${environment.baseUrlBackend}funcionario/novo`, novo, this.options);
 
   }
 
-  editarPessoa(pessoa: Pessoa) {
-
-    //filteredPessoa = this.pessoas.find(p => p.id = pessoa.id)
+  update(id: number,body: { name: string, email: string, dataNascimento: Date, contato: string, perfil: string }) {
+    return this.httpCliente.put<any>(`${environment.baseUrlBackend}owner/atualizacao/${id}`, body, this.options);
   }
 
   getAllPessoas() {
