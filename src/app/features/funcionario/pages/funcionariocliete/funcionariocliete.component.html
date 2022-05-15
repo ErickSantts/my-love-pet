@@ -1,8 +1,8 @@
 <app-header></app-header>
 <div style="width: 80%; align-items: center;">
     <p>Clientes</p>
-    
-    <div class="container-principal">
+    <button (click)="novaPessoa()">Novo Cliente</button>
+    <div *ngIf="!cadastroPessoa">
         <div class="container-funcionarios-table">
             <table mat-table [dataSource]="clientes" class="mat-elevation-z8 table-funcionarios">
                 <!--- Note that these columns can be defined in any order.
@@ -27,6 +27,32 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
         </div>
+    </div>
+
+    <div *ngIf="cadastroPessoa">
+        <form [formGroup]="formPessoa" class="register-form">
+            <div class="form-field">
+                <label class="label-input">Nome do Funcionario:</label>
+                <input type="text" formControlName="name" placeholder="Digite o nome">
+            </div>
+            <div class="form-field">
+                <label class="label-input">Email:</label>
+                <input type="email" formControlName="email" placeholder="Digite o Email">
+            </div>
+            <div class="form-field">
+                <label class="label-input">Data de Nascimento:</label>
+                <input type="date" formControlName="dataNascimento" value="Data de Nascimento">
+            </div>
+            <div class="form-field">
+                <label class="label-input">Contato</label>
+                <input type="text" formControlName="contato" value="Contato">
+            </div>
+    
+            <div class="buttons">
+                <button (click)="cancelar()">Cancelar</button>
+                <button class="novoFuncionario" type="submit" (click)="salvar()">Salvar</button>
+            </div>
+        </form>
     </div>
 </div>
 <app-footer></app-footer>

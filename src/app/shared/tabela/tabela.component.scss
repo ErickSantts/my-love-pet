@@ -1,28 +1,33 @@
-.container-principal {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+table {
   width: 100%;
-  p {
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
-      sans-serif;
-    font-size: 40px;
-    text-align: center;
-    margin: 20px auto;
-    width: auto;
+}
+
+.example-card {
+  max-width: 600px;
+}
+
+.container-principal{
+  animation: entrar 2s;
+}
+
+.card-div{
+  animation: aparecer 2s;
+}
+@keyframes entrar{
+  0% {
+      transform: translateX(100px);
   }
-  button {
-    float: right;
+  100% {
+      transform: translateX(0);
   }
-  .container-consultas {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px auto;
-    .table-funcionarios {
-      width: 80%;
-    }
-    
+}
+
+@keyframes aparecer {
+  0%{
+    opacity: 0;
   }
+  100%{
+    opacity: 1;
+  }
+
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
+import { Pessoa } from 'src/app/shared/classes/pessoa/pessoa';
 import { Pet } from 'src/app/shared/classes/pet/pet';
 import { ConsultasService } from 'src/app/shared/services/consultas.service';
 
@@ -12,29 +13,58 @@ import { ConsultasService } from 'src/app/shared/services/consultas.service';
 })
 export class FuncionariopetComponent implements OnInit {
 
-    pets!: Array<Pet>;
-    displayedColumns: string[] = ['id', 'nome'];
+  pets!: Array<Pet>;
+  clientes!: Array<Pessoa>
+  displayedColumns: string[] = ['acao', 'nome'];
+  cadastro: boolean = false;
+  pet = this.consultasServices.getDefaultPet()
 
-    formFuncionario = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required]),
-      dataNascimento: new FormControl('', Validators.required),
-      contato: new FormControl('', Validators.required),
-    });
-    
-    constructor(private router: Router, private consultasServices: ConsultasService, private httpClient: HttpClient) { }
+  formPet = new FormGroup({
+    name: new FormControl('', Validators.required),
+    raca: new FormControl('', Validators.required),
+    dono: new FormControl('', Validators.required),
+    idade: new FormControl('', Validators.required),
+  });
+
+  constructor(private router: Router, private consultasServices: ConsultasService, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
-   //this.consultasServices.getPets().subscribe((pet) => {
-   //   this.pets = pet;
-   // })
+    this.consultasServices.getPets().subscribe((pet) => {
+      this.pets = pet;
+    })
   }
 
-  editarPet(){
+  editarPet() {
     alert("Em manutenção")
   }
 
-  detalhesPet(){
+  detalhesPet() {
     alert("Em manutenção")
+  }
+
+  novoPetCadastro() {
+    this.consultasServices.getClientes().subscribe((pessoa) => {
+      this.clientes = pessoa
+      this.cadastro = true
+    })
+
+  }
+
+  cancelarCadastroPet() {
+    this.cadastro = false;
+  }
+
+  salvarPet() {
+    const formValue = this.formPet.value
+    this.pet.nome = formValue.name,
+      this.pet.raca = formValue.raca,
+      this.pet.donoId = formValue.dono,
+      this.pet.idade = formValue.idade
+
+    this.consultasServices.salvarPet(this.pet).subscribe((pet) => {
+      window.location.reload();
+      alert('Pet adicionado com sucesso')
+      this.cadastro = false;
+    })
   }
 }

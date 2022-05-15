@@ -1,26 +1,183 @@
-div {
+.container-principal {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 100vw;
+    animation: entrar 2s;
+    height: calc(100vh - 135px);
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.button-padrao {
+    height: 28px;
+    width: 150px;
+    border-radius: 5px;
+    color: aliceblue;
+    border: 1px solid #0f75bd;
+    text-align: center;
+    justify-content: center;
+    margin-top: 10px;
+
+    cursor: pointer;
+    transition: 0.6s;
+    background-color: #0f75bd;
+}
+.button-padrao:hover {
+    color: white;
+    background-color: rgb(57, 180, 74);
+}
+
+.button-voltar {
+    height: 28px;
+    border-radius: 5px;
+    color: black;
+    font-weight: 400;
+    border: 1px solid #0f75bd;
+    text-align: center;
+    justify-content: center;
+    margin-top: 10px;
+    width: 150px;
+    cursor: pointer;
+    transition: 0.6s;
+    border: none;
+    border-bottom: #283890 1px solid;
+    background-color: transparent;
+}
+
+.button-voltar:hover {
+    background-color: #0f75bd;
+    color: aliceblue;
+}
+.detalhes, .editar{
+    width: 600px;
+    font-size: 16px;
+    align-content: center;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    height: calc(100vh - 135px);
+
+    span, button, label{
+        margin: 10px 0;
+    }
+
+    label, span{
+        height: 28px;
+        border-bottom: 1px solid #0f75bd;
+        padding-left: 10px;
+        padding-right: 10px;
+        border-radius: 10px;
+    }
+
+
+    .buttons{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+}
+
+.editar{
+    .buttons{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+.register-form {
+    width: 600px;
+    font-size: 16px;
+    input,
+    label {
+        margin: 10px 0;
+        height: 25px;
+    }
+    input {
+        width: 350px;
+        border: none;
+        border: #283890 solid 1px;
+        border-radius: 8px;
+        padding-right: 15px;
+        padding-left: 15px;
+        border-top: transparent;
+        border-left: transparent;
+    }
+    label {
+        border: none;
+        border: #283890 solid 1px;
+        border-radius: 8px;
+        padding-left: 15px;
+        padding-right: 15px;
+        border-top: transparent;
+        border-right: transparent;
+    }
+}
+
+@keyframes entrar {
+    0% {
+        transform: translateX(-200px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+table {
+    width: 100%;
+}
+
+.example-card {
+    width: 800px;
+    max-width: 800px;
+    animation: entrar;
+}
+
+.form-field {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header {
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    p {
-        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-        font-size: 40px;
-        text-align: center;
-        margin: 20px auto;
-        width: auto;
+    flex-direction: column;
+}
+
+.butao-novo-funcionario {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    border-bottom: 1px solid #283890;
+    margin: 20px auto 10px auto;
+    border-radius: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+h1,
+h2 {
+    transition: 0.8s;
+}
+
+
+.editar, .cadastro, .detalhes{
+    animation: aparecer 2s;
+}
+
+@keyframes aparecer{
+    0%{
+        opacity: 0;
     }
-    button {
-        float: right;
-    }
-    .container-funcionarios-table {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 20px auto;
-        .table-funcionarios {
-            width: 80%;
-        }
+    100%{
+        opacity: 1;
     }
 }

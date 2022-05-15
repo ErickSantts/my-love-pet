@@ -1,6 +1,11 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Consulta } from 'src/app/shared/classes/consulta/consulta';
 import { Pessoa } from 'src/app/shared/classes/pessoa/pessoa';
+import { Pet } from 'src/app/shared/classes/pet/pet';
+import { ConsultasService } from 'src/app/shared/services/consultas.service';
 
 @Component({
   selector: 'app-veterinario',
@@ -11,6 +16,10 @@ export class VeterinarioComponent implements OnInit {
 
   pessoaLogada!: Pessoa
   consulta: boolean = false
+  clientes!: Array<Pessoa>
+  pets!: Array<Pet>
+
+  novaConsulta: Consulta = this.consultasServices.getDefaultConsulta()
 
   formConsulta = new FormGroup({
     pet: new FormControl('', [Validators.required]),
@@ -21,7 +30,7 @@ export class VeterinarioComponent implements OnInit {
     descricao: new FormControl('', [Validators.required]),
   });
 
-  constructor() { }
+  constructor(private router: Router, private consultasServices: ConsultasService, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     const pessoa = localStorage.getItem('pessoa');
@@ -29,9 +38,17 @@ export class VeterinarioComponent implements OnInit {
     if (pessoa) {
       this.pessoaLogada = JSON.parse(pessoa);
     }
+
+    this.consultasServices.getClientes().subscribe((pessoas) => {
+      this.clientes = pessoas
+    });
+
+    this.consultasServices.getPets().subscribe((pets) => {
+      this.pets = pets
+    })
   }
 
-  novaConsulta() {
+  cadastrarConsulta() {
     this.consulta = true;
   }
 
@@ -40,7 +57,18 @@ export class VeterinarioComponent implements OnInit {
   }
 
   salvar() {
-
+    const formConsulta = this.formConsulta.value
+    this.novaConsulta.petId = formConsulta.petId,
+      this.novaConsulta.donoId = formConsulta.donoId,
+      this.novaConsulta.raca = formConsulta.raca,
+      this.novaConsulta.remedios = formConsulta.remedios,
+      this.novaConsulta.valor = formConsulta.valor,
+      this.novaConsulta.detalhes = formConsulta.descricao
+    this.consultasServices.salvarConsulta(this.novaConsulta).subscribe((pessoa) => {
+      window.location.reload();
+      alert('Consulta adicionada com sucesso')
+      this.consulta = false;
+    })
   }
 
 }

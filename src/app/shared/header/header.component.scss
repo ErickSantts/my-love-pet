@@ -5,24 +5,13 @@ nav {
   margin: 5px 5px;
   list-style: none;
   width: calc(100vw - 40px);
-  height: 45px;
+  height: 55px;
   font-size: 1.2rem;
   border-bottom: 1px solid #283890;
   border-top: 1px solid #283890;
   border-radius: 5px;
-  li {
-    display: flex;
-    padding: 2px 10px;
-    width: auto;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    margin: auto 20px;
-    cursor: pointer;
-    transition: 0.6s;
-    border-radius: 5px;
-  }
+  width: calc(100vw - 10px);
+
   ul {
     list-style: none;
     display: flex;
@@ -40,14 +29,13 @@ nav {
       cursor: pointer;
       transition: 0.6s;
       border-radius: 5px;
+      .transparent:hover {
+        background-color: transparent;
+      }
     }
     li:hover {
       background-color: #283890;
       color: aliceblue;
     }
-  }
-  li:hover {
-    background-color: #283890;
-    color: aliceblue;
   }
 }

@@ -6,7 +6,7 @@ import { ConsultasService } from './../services/consultas.service';
 @Component({
   selector: 'app-tabela',
   templateUrl: './tabela.component.html',
-  styleUrls: ['./tabela.component.scss'],
+  styleUrls: ['./tabela.component.scss']
 })
 export class TabelaComponent implements OnInit {
 
@@ -23,7 +23,7 @@ export class TabelaComponent implements OnInit {
   displayedColumns: string[] = ['id', 'valor', 'dataConsulta', 'detalhes'];
 
 
-  constructor(private consultasServices: ConsultasService) { }
+  constructor(private consultasServices: ConsultasService ) { }
 
   ngOnInit(): void {
     const pessoa = localStorage.getItem('pessoa');
@@ -44,12 +44,12 @@ export class TabelaComponent implements OnInit {
         this.consultasServices.getConsultas().subscribe((consultas) => {
           this.consultas = consultas
         });
-      } 
+      }
       if (this.pessoa?.perfil == 'veterinario') {
         this.consultasServices.getConsultas().subscribe((consultas) => {
           this.consultas = consultas
         });
-      } 
+      }
 
     }
   }
@@ -61,10 +61,11 @@ export class TabelaComponent implements OnInit {
     });
 
     console.log(this.consulta)
-    this.consultasServices.getPessoaByConsulta(parseInt(this.consulta?.id)).subscribe((pessoa) => {
-      this.pessoaCliente = pessoa
+    if (this.consulta.id)
+      this.consultasServices.getPessoaByConsulta(this.consulta.id).subscribe((pessoa) => {
+        this.pessoaCliente = pessoa
 
-    })
+      })
     console.log(this.pessoaCliente)
   }
 

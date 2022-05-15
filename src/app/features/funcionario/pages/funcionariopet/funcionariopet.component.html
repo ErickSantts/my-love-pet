@@ -1,13 +1,11 @@
 <app-header></app-header>
 <div>
-    <h1>Em Manutenção</h1>
-    <!-- <p>Pets</p>
-    <div class="container-principal">
+    <button (click)="novoPetCadastro()">Cadastrar Novo Pet</button>
+    <p>Pets</p>
+    <div class="container-principal" *ngIf="!cadastro">
         <div class="container-funcionarios-table">
             <table mat-table [dataSource]="pets" class="mat-elevation-z8 table-funcionarios">
-               
-            
-                <ng-container matColumnDef="id">
+                <ng-container matColumnDef="acao">
                     <th mat-header-cell *matHeaderCellDef> Ação </th>
                     <td mat-cell *matCellDef="let element">
                         <button style="float: left;" (click)="editarPet()">Editar</button>
@@ -19,13 +17,45 @@
        
                 <ng-container matColumnDef="nome">
                     <th mat-header-cell *matHeaderCellDef> Nome </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
         </div>
-    </div> -->
+    </div>
+
+    <div *ngIf="cadastro">
+        Cadastro novo pet
+
+        <form [formGroup]="formPet" class="register-form">
+            <div class="form-field">
+                <label class="label-input">Nome do pet:</label>
+                <input type="text" formControlName="name" placeholder="Digite o nome">
+            </div>
+            <div class="form-field">
+                <label class="label-input">Raça:</label>
+                <input type="email" formControlName="raca" placeholder="Digite a raca do animal">
+            </div>
+            <div class="form-field">
+                <label class="label-input">Dono</label>
+                <select formControlName="dono">
+                    <option *ngFor="let pessoa of clientes" [value]="pessoa">
+                      {{ pessoa!.name }}
+                    </option>
+                  </select>
+            </div>
+            <div class="form-field">
+                <label class="label-input">Idade</label>
+                <input type="number" formControlName="idade" value="Idade" >
+            </div>
+    
+            <div class="buttons">
+                <button (click)="cancelarCadastroPet()">Cancelar</button>
+                <button type="submit" (click)="salvarPet()">Salvar</button>
+            </div>
+        </form>
+    </div>
 </div>
 <app-footer></app-footer>

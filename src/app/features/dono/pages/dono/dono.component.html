@@ -1,5 +1,11 @@
-<app-header>Bem Vindo {{pessoaLogada?.name}</app-header>
-<h1></h1>
-<h2>Todas consultas</h2>
-<app-tabela></app-tabela>
-<app-footer></app-footer>
+<app-header></app-header>
+<div class="container-principal">
+    <h1>Bem vindo Sr.(a) {{pessoaLogada?.name}}</h1>
+    <h2>Todas consultas</h2>
+    <div class="container-tabela">
+        <app-tabela></app-tabela>
+    </div>
+</div>
+<div class="rodape">
+    <app-footer></app-footer>
+</div>

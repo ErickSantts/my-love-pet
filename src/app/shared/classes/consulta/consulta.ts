@@ -2,7 +2,7 @@ import { Pessoa } from "../pessoa/pessoa";
 import { Pet } from "../pet/pet";
 
 export interface Consulta {
-        id: string;
+        id?: number;
         petId: Pet;
         donoId: Pessoa;
         raca: string;

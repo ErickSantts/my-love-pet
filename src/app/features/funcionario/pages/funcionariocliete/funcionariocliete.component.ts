@@ -11,7 +11,17 @@ import { ConsultasService } from 'src/app/shared/services/consultas.service';
   styleUrls: ['./funcionariocliete.component.scss']
 })
 export class FuncionarioclieteComponent implements OnInit {
+  cadastroPessoa: boolean = false;
+  cadastroPet: boolean = false;
+  novoCliente: Pessoa = this.consultasServices.getDefaultPessoa();
 
+  formPessoa = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
+    dataNascimento: new FormControl('',[Validators.required]),
+    contato: new FormControl('', [Validators.required]),
+  });
+  
   clientes!: Array<Pessoa>;
   displayedColumns: string[] = ['id', 'nome'];
 
@@ -23,6 +33,23 @@ export class FuncionarioclieteComponent implements OnInit {
     })
   }
 
+
+  salvar() {
+    const formValue = this.formPessoa.value
+    this.novoCliente.name = formValue.name,
+      this.novoCliente.email = formValue.email,
+      this.novoCliente.dataNascimento = formValue.dataNascimento,
+      this.novoCliente.contato = formValue.contato,
+      this.novoCliente.perfil = 'cliente',
+      this.novoCliente.senha = '12345'
+    this.consultasServices.salvar(this.novoCliente).subscribe((pessoa) => {
+      window.location.reload();
+      alert('Cliente adicionado com sucesso')
+      this.cadastroPessoa = false;
+    })
+
+  }
+
   editarCliente(){
     alert("Em manutenção")
   }
@@ -30,5 +57,11 @@ export class FuncionarioclieteComponent implements OnInit {
   detalhesCliente(){
     alert("Em manutenção")
   }
+  cancelar() {
+    this.cadastroPessoa = false;
+  }
 
+  novaPessoa() {
+    this.cadastroPessoa = true;
+  }
 }

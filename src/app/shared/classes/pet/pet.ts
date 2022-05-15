@@ -1,7 +1,9 @@
+import { Pessoa } from "../pessoa/pessoa";
+
 export interface Pet {
-  id: string;
+  id?: string;
   nome: string;
   raca: string;
-  donoId: string;
+  donoId: Pessoa;
   idade: string;
 }

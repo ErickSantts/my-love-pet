@@ -16,9 +16,6 @@ export class ConsultasService {
       'Content-Type': 'application/json'
     }
   }
-
-
-
   constructor(private httpCliente: HttpClient) { }
 
   getDefaultPessoa(): Pessoa {
@@ -30,6 +27,30 @@ export class ConsultasService {
       senha: '',
       dataNascimento: new Date,
       perfil: 'funcionario'
+    }
+  }
+
+  getDefaultConsulta(): Consulta{
+    const dateToday = moment().format('YYYY/MM/DD');
+    return {
+      petId: this.getDefaultPet(),
+      donoId: this.getDefaultPessoa(),
+      raca: '',
+      dataConsulta: new Date(),
+      remedios: '',
+      valor:0,
+      detalhes: '',
+      veterinarioId: this.getDefaultPessoa()
+    }
+  }
+
+
+  getDefaultPet(): Pet {
+    return {
+      nome: '',
+      raca: '',
+      donoId: this.getDefaultPessoa(),
+      idade: ''
     }
   }
 
@@ -72,7 +93,14 @@ export class ConsultasService {
 
   salvar(novo: Pessoa) {
     return this.httpCliente.post(`${environment.baseUrlBackend}funcionario/novo`, novo, this.options);
+  }
 
+  salvarPet(pet: Pet) {
+    return this.httpCliente.post(`${environment.baseUrlBackend}funcionario/novo/pet`, pet, this.options);
+  }
+
+  salvarConsulta(consulta: Consulta) {
+    return this.httpCliente.post(`${environment.baseUrlBackend}funcionario/nova/consulta`, consulta, this.options);
   }
 
   update(id: number,body: { name: string, email: string, dataNascimento: Date, contato: string, perfil: string }) {

@@ -1,7 +1,12 @@
 <nav>
-    <li (click)="navegar('/'+perfil)">Home</li>
+    <li style="margin-left: 20px;"  class="transparent" (click)="navegar('/'+perfil)">
+        <button mat-fab color="primary">
+            <mat-icon class="tamanho-icone" style="padding: 0 !important;">home</mat-icon>
+          </button>
+    </li>
+    
     <ul>
-        <li (click)="navegar('/contabilidade')" *ngIf="perfil == 'owner' ">Contabilidade</li>
+        <li (click)="navegar('/owner')" *ngIf="perfil == 'owner' ">Consultas</li>
         <li (click)="navegar('/funcionarios')" *ngIf="perfil == 'owner' ">Funcionários</li>
          <li (click)="navegar('/funcionario-clientes')" *ngIf="perfil == 'funcionario' ">Clientes</li>
         <li (click)="navegar('/funcionario-pets')" *ngIf="perfil == 'funcionario' ">Pets</li>
