@@ -1,16 +1,24 @@
 footer {
-display: flex;
-justify-content: center;
-align-items: center;
-  width: vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 100px) !important;
   height: 30px;
   border-bottom: 1px solid #283890;
   border-top: 1px solid #283890;
   border-radius: 5px;
-  margin: auto 20px;
+  padding: auto 20px;
   margin-bottom: 5px;
   a {
     text-decoration: none;
     color: #283890;
   }
+}
+
+.container-principal {
+  width: 99% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }

@@ -1,16 +1,21 @@
+.container-principal{
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
 nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 5px 5px;
   list-style: none;
-  width: calc(100vw - 40px)!important;
+  width: calc(100vw - 100px)!important;
   height: 55px;
   font-size: 1.2rem;
   border-bottom: 1px solid #283890;
   border-top: 1px solid #283890;
   border-radius: 5px;
-  width: calc(100vw - 10px);
 
   ul {
     list-style: none;
