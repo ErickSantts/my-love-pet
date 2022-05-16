@@ -1,58 +1,69 @@
 <app-header></app-header>
-<div style="width: 80%; align-items: center;">
-    <p>Clientes</p>
-    <button (click)="novaPessoa()">Novo Cliente</button>
-    <div *ngIf="!cadastroPessoa">
-        <div class="container-funcionarios-table">
-            <table mat-table [dataSource]="clientes" class="mat-elevation-z8 table-funcionarios">
-                <!--- Note that these columns can be defined in any order.
+<div class="container-tela">
+    <div class="container-principal">
+        <div *ngIf="!cadastroPessoa" class="container-card-tabela">
+            <p class="titulo">Clientes</p>
+            <button (click)="novaPessoa()" mat-raised-button color="primary">Novo Cliente<mat-icon
+                    style="margin-left: 5px;">add</mat-icon> </button>
+            <mat-card class="card-tabela">
+                <mat-toolbar color="primary">Lista de Clientes.</mat-toolbar>
+                <table mat-table [dataSource]="clientes" class="mat-elevation-z8 table">
+                    <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
-                <!-- Position Column -->
-                <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef> Ação </th>
-                    <td mat-cell *matCellDef="let element">
-                        <button style="float: left;" (click)="editarCliente()">Editar</button>
-                        <button style="float: left;" (click)="detalhesCliente()">Detalhes</button>
-                    </td>
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef> Ação </th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-icon color="primary" aria-hidden="false" style="cursor: pointer;"
+                                (click)="editarCliente()">edit</mat-icon>
+                            <mat-icon color="primary" aria-hidden="false" style="cursor: pointer;"
+                                (click)="detalhesCliente()">more</mat-icon>
 
-                </ng-container>
-
-                <!-- Name Column -->
-                <ng-container matColumnDef="nome">
-                    <th mat-header-cell *matHeaderCellDef> Nome </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+                        </td>
+                    </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="nome">
+                        <th mat-header-cell *matHeaderCellDef> Nome </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            </mat-card>
         </div>
-    </div>
 
-    <div *ngIf="cadastroPessoa">
-        <form [formGroup]="formPessoa" class="register-form">
-            <div class="form-field">
-                <label class="label-input">Nome do Funcionario:</label>
-                <input type="text" formControlName="name" placeholder="Digite o nome">
-            </div>
-            <div class="form-field">
-                <label class="label-input">Email:</label>
-                <input type="email" formControlName="email" placeholder="Digite o Email">
-            </div>
-            <div class="form-field">
-                <label class="label-input">Data de Nascimento:</label>
-                <input type="date" formControlName="dataNascimento" value="Data de Nascimento">
-            </div>
-            <div class="form-field">
-                <label class="label-input">Contato</label>
-                <input type="text" formControlName="contato" value="Contato">
-            </div>
-    
-            <div class="buttons">
-                <button (click)="cancelar()">Cancelar</button>
-                <button class="novoFuncionario" type="submit" (click)="salvar()">Salvar</button>
-            </div>
-        </form>
+        <div *ngIf="cadastroPessoa" class="cadastro">
+
+            <p class="titulo">Cadastro novo cliente</p>
+
+            <mat-toolbar color="primary" style="border-radius: 15px; margin-bottom: 15px;">
+                Dados do Cliente.
+            </mat-toolbar>
+
+            <form [formGroup]="formPessoa" class="register-form">
+                <div class="form-field">
+                    <label class="label-input">Nome do Funcionario:</label>
+                    <input type="text" formControlName="name" placeholder="Digite o nome">
+                </div>
+                <div class="form-field">
+                    <label class="label-input">Email:</label>
+                    <input type="email" formControlName="email" placeholder="Digite o Email">
+                </div>
+                <div class="form-field">
+                    <label class="label-input">Data de Nascimento:</label>
+                    <input type="date" formControlName="dataNascimento" value="Data de Nascimento">
+                </div>
+                <div class="form-field">
+                    <label class="label-input">Contato</label>
+                    <input type="text" formControlName="contato" value="Contato">
+                </div>
+
+                <div class="buttons">
+                    <button class="button-voltar" (click)="cancelar()">Cancelar</button>
+                    <button class="button-padrao"type="submit" (click)="salvar()">Salvar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <app-footer></app-footer>

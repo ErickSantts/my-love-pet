@@ -67,6 +67,9 @@
 
     <div class="detalhes" *ngIf="detalhes">
 
+        <mat-toolbar color="primary" style="border-radius: 15px; margin-bottom: 15px;">
+            Dados do funcionário.
+        </mat-toolbar>
         <div class="form-field">
             <label class="label-input">Nome do Funcionario:</label>
             <span>{{funcionarioSelecionado.name}}</span>
@@ -90,6 +93,9 @@
 
 
     <div class="editar" *ngIf="editar">
+        <mat-toolbar color="primary" style="border-radius: 15px; margin-bottom: 15px;">
+            Editar dados do funcionário.
+        </mat-toolbar>
         <form [formGroup]="formFuncionario" class="register-form">
             <div class="form-field">
                 <label class="label-input">Nome do Funcionario:</label>

@@ -5,12 +5,14 @@ import { Route, Router } from '@angular/router';
 import { Pessoa } from 'src/app/shared/classes/pessoa/pessoa';
 import { Pet } from 'src/app/shared/classes/pet/pet';
 import { ConsultasService } from 'src/app/shared/services/consultas.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-funcionariopet',
   templateUrl: './funcionariopet.component.html',
   styleUrls: ['./funcionariopet.component.scss']
 })
+
 export class FuncionariopetComponent implements OnInit {
 
   pets!: Array<Pet>;

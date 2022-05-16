@@ -4,7 +4,7 @@
     justify-content: center;
     width: 100vw;
     animation: entrar 2s;
-    height: calc(100vh - 135px);
+    min-height: calc(100vh - 115px);
 }
 
 .buttons {
@@ -179,5 +179,15 @@ h2 {
     }
     100%{
         opacity: 1;
+    }
+}
+
+.detalhes{
+
+    label, span{
+        background-color: beige;
+    }
+    span{
+        color: gray;
     }
 }

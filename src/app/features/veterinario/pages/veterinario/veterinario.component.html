@@ -1,50 +1,54 @@
 <app-header></app-header>
+<div class="container-principal">
+    <div *ngIf="!consulta" class="container-boas-vindas">
+        <p class="header">Bem vindo {{pessoaLogada?.name}}</p>
+        <button mat-raised-button color="primary" (click)="cadastrarConsulta()">Nova Consulta</button>
+        <app-tabela></app-tabela>
+    </div>
+    <div *ngIf="consulta" class="cadastro">
 
-<div *ngIf="!consulta" class="container-boas-vindas">
-    <p>Bem vindo {{pessoaLogada?.name}}</p>
-    <button (click)="cadastrarConsulta()">Nova Consulta</button>
-    <app-tabela></app-tabela>
-</div>
-<div *ngIf="consulta" class="container-cadastro-consulta">
+        <mat-toolbar color="primary" style="border-radius: 15px; margin-bottom: 15px;">
+            Dados da consulta.
+        </mat-toolbar>
+        <form [formGroup]="formConsulta" class="register-form">
+            <div class="form-field">
+                <label class="label-input">Pet</label>
+                <select class="option" formControlName="pet">
+                    <option *ngFor="let pet of pets" [value]="pet">
+                        {{ pet!.nome }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label class="label-input">Dono</label>
+                <select class="option" formControlName="dono">
+                    <option *ngFor="let pessoa of clientes" [value]="pessoa">
+                        {{ pessoa!.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="form-field">
+                <label class="label-input">Raça:</label>
+                <input type="text" formControlName="raca" value="Raça">
+            </div>
+            <div class="form-field">
+                <label class="label-input">Remedios: </label>
+                <textarea class="textarea" rows="5" type="text" formControlName="remedios" value="Remedios"></textarea>
+            </div>
+            <div class="form-field">
+                <label class="label-input">Valor: </label>
+                <input type="number" formControlName="valor" value="Valor">
+            </div>
+            <div class="form-field">
+                <label class="label-input">Descrição da consulta: </label>
+                <textarea class="textarea" rows="5" formControlName="descricao" value="Descricao"></textarea>
+            </div>
 
-    <form [formGroup]="formConsulta" class="register-form">
-        <div class="form-field">
-            <label class="label-input">Pet</label>
-            <select formControlName="pet">
-                <option *ngFor="let pet of pets" [value]="pet">
-                  {{ pet!.nome }}
-                </option>
-              </select>
-        </div>
-        <div class="form-field">
-            <label class="label-input">Dono</label>
-            <select formControlName="dono">
-                <option *ngFor="let pessoa of clientes" [value]="pessoa">
-                  {{ pessoa!.name }}
-                </option>
-              </select>
-        </div>
-        <div class="form-field">
-            <label class="label-input">Raça:</label>
-            <input type="text" formControlName="raca" value="Raça">
-        </div>
-        <div class="form-field">
-            <label class="label-input">Remedios: </label>
-            <textarea rows="5" type="text" formControlName="remedios" value="Remedios"></textarea>
-        </div>
-        <div class="form-field">
-            <label class="label-input">Valor: </label>
-            <input type="number" formControlName="valor" value="Valor">
-        </div>
-        <div class="form-field">
-            <label class="label-input">Descrição da consulta: </label>
-            <textarea rows="5" formControlName="descricao" value="Descricao"></textarea>
-        </div>
-
-        <div class="buttons">
-            <button (click)="cancelar()">Cancelar</button>
-            <button class="novoFuncionario" type="submit" (click)="salvar()">Salvar</button>
-        </div>
-    </form>
+            <div class="buttons">
+                <button class="button-voltar" (click)="cancelar()">Cancelar</button>
+                <button class="button-padrao" type="submit" (click)="salvar()">Salvar</button>
+            </div>
+        </form>
+    </div>
 </div>
 <app-footer></app-footer>
