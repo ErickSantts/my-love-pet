@@ -8,27 +8,22 @@
       <mat-toolbar color="primary">
         Consultas realizadas.
       </mat-toolbar>
-      <table mat-table [dataSource]="consultas" class="mat-elevation-z8 table">
+      <table mat-table [dataSource]="consultas" class="mat-elevation-z8 table" *ngIf="qntConsultas>0">
         <!--- Note that these columns can be defined in any order.
             The actual rendered columns are set as a property on the row definition" -->
         <!-- Position Column -->
-        <ng-container matColumnDef="id" class="ng-container">
+        <ng-container matColumnDef="acoes" class="ng-container">
           <th mat-header-cell *matHeaderCellDef width="10%" style="font-size: 16px;"> Ações </th>
           <td mat-cell *matCellDef="let element">
-            <mat-icon (click)="pesquisar(element.id)" color="primary" aria-hidden="false" style="cursor: pointer;">add</mat-icon>
+            <mat-icon (click)="pesquisar(element.id)" color="primary" aria-hidden="false" style="cursor: pointer;">add
+            </mat-icon>
           </td>
         </ng-container>
 
         <!-- Weight Column -->
-        <ng-container matColumnDef="valor">
-          <th mat-header-cell *matHeaderCellDef width="15%" style="font-size: 16px;"> Valor </th>
-          <td mat-cell *matCellDef="let element"> {{element.valor | currencyBr}} </td>
-        </ng-container>
-
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="dataConsulta">
-          <th mat-header-cell *matHeaderCellDef width="15%" style="font-size: 16px;"> Data </th>
-          <td mat-cell *matCellDef="let element"> {{element.dataConsulta | date: 'dd/MM/yyyy'}} </td>
+        <ng-container matColumnDef="pet">
+          <th mat-header-cell *matHeaderCellDef width="15%" style="font-size: 16px;"> Pet </th>
+          <td mat-cell *matCellDef="let element"> {{element.pet.nome}} </td>
         </ng-container>
 
         <ng-container matColumnDef="detalhes" style="flex: 0 0 50%">
@@ -40,9 +35,12 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
     </mat-card>
+    <mat-card *ngIf="qntConsultas==0">
+      <mat-card-title color="primary">Nenhuma consulta realizada até o momento.</mat-card-title>
+      <mat-card-subtitle><label for="valor-consulta">Ao realizar apareceram aqui. </label></mat-card-subtitle>
+      <mat-card-content>Está tudo certo.</mat-card-content>
+    </mat-card>
     <div *ngIf="detalhes" class="card-div">
-
-
       <mat-card class="example-card">
         <mat-card-title color="primary">Detalhes da Consulta</mat-card-title>
         <mat-card-subtitle><label for="valor-consulta">Valor da Consulta: </label>
@@ -52,9 +50,27 @@
         </mat-card-subtitle>
         <mat-card-content>
           <div>
+            <label for="remedios-consulta">Dono do Pet: </label>
+            <span id="remedios-consulta">
+              {{consulta?.dono?.name}}
+            </span>
+          </div>
+          <div>
+            <label for="remedios-consulta">Nome do Pet: </label>
+            <span id="remedios-consulta">
+              {{consulta?.pet?.nome}}
+            </span>
+          </div>
+          <div>
             <label for="remedios-consulta">Remédios Passados: </label>
             <span id="remedios-consulta">
               {{consulta?.remedios}}
+            </span>
+          </div>
+          <div>
+            <label for="detalhes-consulta">Veterinario responsável pela Consulta: </label>
+            <span id="detalhes-consulta">
+              {{consulta?.veterinarioId?.name}}
             </span>
           </div>
           <div>

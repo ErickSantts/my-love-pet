@@ -4,6 +4,6 @@ export interface Pet {
   id?: string;
   nome: string;
   raca: string;
-  donoId: Pessoa;
+  dono: Pessoa;
   idade: string;
 }

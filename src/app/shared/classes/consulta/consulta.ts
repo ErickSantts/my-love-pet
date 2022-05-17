@@ -3,15 +3,12 @@ import { Pet } from "../pet/pet";
 
 export interface Consulta {
         id?: number;
-        petId: Pet;
-        donoId: Pessoa;
+        pet: Pet;
+        dono: Pessoa;
         raca: string;
         dataConsulta: Date;
         remedios: string;
         valor: number;
         detalhes: string;
         veterinarioId: Pessoa;
-        idPessoa: string;
-        idPet: string;
-        idVeterinario: string;
 }

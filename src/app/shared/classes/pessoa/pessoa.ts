@@ -9,8 +9,5 @@ export interface Pessoa {
   dataNascimento: Date;
   senha: string;
   perfil: string;
-  pets?: Pet[];
-  consulta?: Consulta[];
-  consultaVet?: Consulta[];
 
 }

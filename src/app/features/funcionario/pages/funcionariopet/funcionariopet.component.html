@@ -51,7 +51,7 @@
                 <div class="form-field">
                     <label class="label-input">Dono</label>
                     <select class="option"  formControlName="dono">
-                        <option  *ngFor="let pessoa of clientes" [value]="pessoa">
+                        <option  *ngFor="let pessoa of clientes" [value]="pessoa.id">
                             {{ pessoa!.name }}
                         </option>
                     </select>

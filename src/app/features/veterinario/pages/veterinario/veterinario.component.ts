@@ -10,28 +10,34 @@ import { ConsultasService } from 'src/app/shared/services/consultas.service';
 @Component({
   selector: 'app-veterinario',
   templateUrl: './veterinario.component.html',
-  styleUrls: ['./veterinario.component.scss']
+  styleUrls: ['./veterinario.component.scss'],
 })
 export class VeterinarioComponent implements OnInit {
+  pessoaLogada!: Pessoa;
+  consulta: boolean = false;
+  clientes!: Array<Pessoa>;
+  pets!: Array<Pet>;
 
-  pessoaLogada!: Pessoa
-  consulta: boolean = false
-  clientes!: Array<Pessoa>
-  pets!: Array<Pet>
+  idDono!: string | number;
+  idPet!: string | number;
 
-  novaConsulta: Consulta = this.consultasServices.getDefaultConsulta()
+  novaConsulta: Consulta = this.consultasServices.getDefaultConsulta();
 
   formConsulta = new FormGroup({
-    raca: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    remedios: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    valor: new FormControl('', [Validators.required, Validators.minLength(1)]),
-    descricao: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    donoId: new FormControl('', [Validators.required, Validators.minLength(1)]),
-    petId: new FormControl('', [Validators.required, Validators.minLength(1)]),
-    idPessoa: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    raca: new FormControl('', [Validators.required]),
+    remedios: new FormControl('', [Validators.required]),
+    valor: new FormControl('', [Validators.required]),
+    descricao: new FormControl('', [Validators.required]),
+    donoId: new FormControl('', [Validators.required]),
+    petId: new FormControl('', [Validators.required]),
+    idPessoa: new FormControl('', [Validators.required]),
   });
 
-  constructor(private router: Router, private consultasServices: ConsultasService, private httpClient: HttpClient) { }
+  constructor(
+    private router: Router,
+    private consultasServices: ConsultasService,
+    private httpClient: HttpClient
+  ) {}
 
   ngOnInit(): void {
     const pessoa = localStorage.getItem('pessoa');
@@ -41,12 +47,12 @@ export class VeterinarioComponent implements OnInit {
     }
 
     this.consultasServices.getClientes().subscribe((pessoas) => {
-      this.clientes = pessoas
+      this.clientes = pessoas;
     });
 
     this.consultasServices.getPets().subscribe((pets) => {
-      this.pets = pets
-    })
+      this.pets = pets;
+    });
   }
 
   cadastrarConsulta() {
@@ -54,28 +60,34 @@ export class VeterinarioComponent implements OnInit {
   }
 
   cancelar() {
-    this.consulta = false
+    this.consulta = false;
   }
 
   salvar() {
-    if(this.pessoaLogada.id){
-    const formConsulta = this.formConsulta.value
-    this.novaConsulta.idPet = formConsulta.petId,
-      this.novaConsulta.idPessoa = formConsulta.donoId,
-      this.novaConsulta.raca = formConsulta.raca,
-      this.novaConsulta.remedios = formConsulta.remedios,
-      this.novaConsulta.valor = formConsulta.valor,
-      this.novaConsulta.detalhes = formConsulta.descricao,
-      this.novaConsulta.idVeterinario = this.pessoaLogada.id.toString()
+    if (this.pessoaLogada.id) {
+      const formConsulta = this.formConsulta.value;
+      (this.idPet = formConsulta.petId),
+        (this.idDono = formConsulta.donoId),
+        (this.novaConsulta.raca = formConsulta.raca),
+        (this.novaConsulta.remedios = formConsulta.remedios),
+        (this.novaConsulta.valor = formConsulta.valor),
+        (this.novaConsulta.detalhes = formConsulta.descricao),
+        (this.novaConsulta.veterinarioId = this.pessoaLogada);
     }
-
-    console.log(this.formConsulta.value)
-    console.log(this.novaConsulta)
-    this.consultasServices.salvarConsulta(this.novaConsulta).subscribe((pessoa) => {
-      window.location.reload();
-      alert('Consulta adicionada com sucesso')
-      this.consulta = false;
-    })
+  
+    this.consultasServices.getPetById(this.idPet).subscribe((pet) => {
+      this.novaConsulta.pet = pet;
+      this.consultasServices.getClienteById(this.idDono).subscribe((dono) => {
+        this.novaConsulta.dono = dono;
+        this.consultasServices
+          .salvarConsulta(this.novaConsulta)
+          .subscribe((pessoa) => {
+            window.location.reload();
+            alert('Consulta adicionada com sucesso');
+            this.consulta = false;
+            console.log(this.novaConsulta);
+          });
+      });
+    });
   }
-
 }

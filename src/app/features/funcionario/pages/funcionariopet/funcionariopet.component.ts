@@ -21,6 +21,8 @@ export class FuncionariopetComponent implements OnInit {
   cadastro: boolean = false;
   pet = this.consultasServices.getDefaultPet()
 
+  idDono!: string | number;
+
   formPet = new FormGroup({
     name: new FormControl('', Validators.required),
     raca: new FormControl('', Validators.required),
@@ -60,13 +62,19 @@ export class FuncionariopetComponent implements OnInit {
     const formValue = this.formPet.value
     this.pet.nome = formValue.name,
       this.pet.raca = formValue.raca,
-      this.pet.donoId = formValue.dono,
+      this.idDono = formValue.petId,
       this.pet.idade = formValue.idade
 
-    this.consultasServices.salvarPet(this.pet).subscribe((pet) => {
-      window.location.reload();
-      alert('Pet adicionado com sucesso')
-      this.cadastro = false;
-    })
+      console.log(this.pet)
+
+      this.consultasServices.getClienteById(this.idDono).subscribe((dono) => {
+        this.pet.dono = dono;
+        this.consultasServices.salvarPet(this.pet).subscribe((pet) => {
+          window.location.reload();
+          alert('Pet adicionado com sucesso')
+          this.cadastro = false;
+        })
+      });
+    
   }
 }

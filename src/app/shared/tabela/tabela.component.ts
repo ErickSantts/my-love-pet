@@ -17,10 +17,12 @@ export class TabelaComponent implements OnInit {
   pessoaCliente?: Pessoa
   funcionarios?: Array<Pessoa>
 
+  qntConsultas!: number
+
   @Input() perfil?: string;
 
 
-  displayedColumns: string[] = ['id', 'valor', 'dataConsulta', 'detalhes'];
+  displayedColumns: string[] = ['acoes','pet', 'detalhes'];
 
 
   constructor(private consultasServices: ConsultasService ) { }
@@ -34,20 +36,24 @@ export class TabelaComponent implements OnInit {
       if (this.pessoa?.perfil == 'owner') {
         this.consultasServices.getConsultas().subscribe((consultas) => {
           this.consultas = consultas
+          this.qntConsultas = consultas.length
         });
       } if (this.pessoa?.perfil == 'cliente' && this.pessoa.id != null) {
         this.consultasServices.getConsultasById(this.pessoa.id).subscribe((consultas) => {
           this.consultas = consultas
+          this.qntConsultas = consultas.length
         });
       }
       if (this.pessoa?.perfil == 'funcionario') {
         this.consultasServices.getConsultas().subscribe((consultas) => {
           this.consultas = consultas
+          this.qntConsultas = consultas.length
         });
       }
       if (this.pessoa?.perfil == 'veterinario') {
         this.consultasServices.getConsultas().subscribe((consultas) => {
           this.consultas = consultas
+          this.qntConsultas = consultas.length
         });
       }
 

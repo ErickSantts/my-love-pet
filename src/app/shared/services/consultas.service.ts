@@ -33,17 +33,14 @@ export class ConsultasService {
   getDefaultConsulta(): Consulta{
     const dateToday = moment().format('YYYY/MM/DD');
     return {
-      petId: this.getDefaultPet(),
-      donoId: this.getDefaultPessoa(),
+      pet: this.getDefaultPet(),
+      dono: this.getDefaultPessoa(),
       raca: '',
       dataConsulta: new Date(),
       remedios: '',
       valor:0,
       detalhes: '',
-      veterinarioId: this.getDefaultPessoa(),
-      idPessoa: '',
-      idPet: '',
-      idVeterinario: ''
+      veterinarioId: this.getDefaultPessoa()
     }
   }
 
@@ -52,7 +49,7 @@ export class ConsultasService {
     return {
       nome: '',
       raca: '',
-      donoId: this.getDefaultPessoa(),
+      dono: this.getDefaultPessoa(),
       idade: ''
     }
   }
@@ -61,8 +58,12 @@ export class ConsultasService {
     return this.httpCliente.get<Array<Pet>>(`${environment.baseUrlBackend}pets/pets`, this.options);
   }
 
-  getPetById(id: string) {
-    
+  getPetById(id: string | number) {
+    return this.httpCliente.get<Pet>(`${environment.baseUrlBackend}pets/pet/${id}`, this.options);
+  }
+
+  getClienteById(id: string | number) {
+    return this.httpCliente.get<Pessoa>(`${environment.baseUrlBackend}funcionario/cliente/${id}`, this.options);
   }
 
   getConsultas() {
