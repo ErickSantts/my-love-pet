@@ -60,7 +60,7 @@
     height: 25px;
   }
   input,
- .option {
+  .option {
     width: 350px !important;
     border: none;
     border: #283890 solid 1px;
@@ -92,14 +92,18 @@
 
 .cadastro {
   animation: aparecer 2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-@keyframes aparecer{
-  0%{
-      opacity: 0;
+@keyframes aparecer {
+  0% {
+    opacity: 0;
   }
-  100%{
-      opacity: 1;
+  100% {
+    opacity: 1;
   }
 }
 

@@ -26,7 +26,7 @@ export class ConsultasService {
       contato: '',
       senha: '',
       dataNascimento: new Date,
-      perfil: 'funcionario'
+      perfil: 'funcionario',
     }
   }
 
@@ -40,7 +40,10 @@ export class ConsultasService {
       remedios: '',
       valor:0,
       detalhes: '',
-      veterinarioId: this.getDefaultPessoa()
+      veterinarioId: this.getDefaultPessoa(),
+      idPessoa: '',
+      idPet: '',
+      idVeterinario: ''
     }
   }
 

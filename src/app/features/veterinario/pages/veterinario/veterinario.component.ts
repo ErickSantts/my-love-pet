@@ -22,12 +22,13 @@ export class VeterinarioComponent implements OnInit {
   novaConsulta: Consulta = this.consultasServices.getDefaultConsulta()
 
   formConsulta = new FormGroup({
-    pet: new FormControl('', [Validators.required]),
-    dono: new FormControl('', [Validators.required]),
     raca: new FormControl('', [Validators.required]),
     remedios: new FormControl('', [Validators.required]),
     valor: new FormControl('', [Validators.required]),
     descricao: new FormControl('', [Validators.required]),
+    donoId: new FormControl('', [Validators.required]),
+    petId: new FormControl('', [Validators.required]),
+    idPessoa: new FormControl('', [Validators.required]),
   });
 
   constructor(private router: Router, private consultasServices: ConsultasService, private httpClient: HttpClient) { }
@@ -57,13 +58,19 @@ export class VeterinarioComponent implements OnInit {
   }
 
   salvar() {
+    if(this.pessoaLogada.id){
     const formConsulta = this.formConsulta.value
-    this.novaConsulta.petId = formConsulta.petId,
-      this.novaConsulta.donoId = formConsulta.donoId,
+    this.novaConsulta.idPet = formConsulta.petId,
+      this.novaConsulta.idPessoa = formConsulta.donoId,
       this.novaConsulta.raca = formConsulta.raca,
       this.novaConsulta.remedios = formConsulta.remedios,
       this.novaConsulta.valor = formConsulta.valor,
-      this.novaConsulta.detalhes = formConsulta.descricao
+      this.novaConsulta.detalhes = formConsulta.descricao,
+      this.novaConsulta.idVeterinario = this.pessoaLogada.id.toString()
+    }
+
+    console.log(this.formConsulta.value)
+    console.log(this.novaConsulta)
     this.consultasServices.salvarConsulta(this.novaConsulta).subscribe((pessoa) => {
       window.location.reload();
       alert('Consulta adicionada com sucesso')

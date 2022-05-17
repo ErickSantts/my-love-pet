@@ -35,6 +35,10 @@
 
 .cadastro{
     animation: aparecer 2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .register-form {

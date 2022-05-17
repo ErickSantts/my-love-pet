@@ -11,4 +11,7 @@ export interface Consulta {
         valor: number;
         detalhes: string;
         veterinarioId: Pessoa;
+        idPessoa: string;
+        idPet: string;
+        idVeterinario: string;
 }

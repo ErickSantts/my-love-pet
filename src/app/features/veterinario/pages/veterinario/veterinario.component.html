@@ -13,17 +13,17 @@
         <form [formGroup]="formConsulta" class="register-form">
             <div class="form-field">
                 <label class="label-input">Pet</label>
-                <select class="option" formControlName="pet">
-                    <option *ngFor="let pet of pets" [value]="pet">
+                <select class="option" formControlName="petId">
+                    <option *ngFor="let pet of pets" [value]="pet.id">
                         {{ pet!.nome }}
                     </option>
                 </select>
             </div>
             <div class="form-field">
                 <label class="label-input">Dono</label>
-                <select class="option" formControlName="dono">
-                    <option *ngFor="let pessoa of clientes" [value]="pessoa">
-                        {{ pessoa!.name }}
+                <select class="option" formControlName="donoId">
+                    <option *ngFor="let pessoa of clientes" [value]="pessoa.id">
+                        {{ pessoa!.name}}
                     </option>
                 </select>
             </div>
