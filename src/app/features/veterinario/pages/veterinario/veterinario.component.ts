@@ -22,13 +22,13 @@ export class VeterinarioComponent implements OnInit {
   novaConsulta: Consulta = this.consultasServices.getDefaultConsulta()
 
   formConsulta = new FormGroup({
-    raca: new FormControl('', [Validators.required]),
-    remedios: new FormControl('', [Validators.required]),
-    valor: new FormControl('', [Validators.required]),
-    descricao: new FormControl('', [Validators.required]),
-    donoId: new FormControl('', [Validators.required]),
-    petId: new FormControl('', [Validators.required]),
-    idPessoa: new FormControl('', [Validators.required]),
+    raca: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    remedios: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    valor: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    descricao: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    donoId: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    petId: new FormControl('', [Validators.required, Validators.minLength(1)]),
+    idPessoa: new FormControl('', [Validators.required, Validators.minLength(1)]),
   });
 
   constructor(private router: Router, private consultasServices: ConsultasService, private httpClient: HttpClient) { }

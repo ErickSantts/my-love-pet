@@ -10,6 +10,7 @@
         <mat-toolbar color="primary" style="border-radius: 15px; margin-bottom: 15px;">
             Dados da consulta.
         </mat-toolbar>
+    
         <form [formGroup]="formConsulta" class="register-form">
             <div class="form-field">
                 <label class="label-input">Pet</label>
@@ -18,6 +19,7 @@
                         {{ pet!.nome }}
                     </option>
                 </select>
+                
             </div>
             <div class="form-field">
                 <label class="label-input">Dono</label>

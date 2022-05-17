@@ -15,6 +15,7 @@ table {
 
 .card-div{
   animation: aparecer 2s;
+  min-width: 500px;
 }
 @keyframes entrar{
   0% {
